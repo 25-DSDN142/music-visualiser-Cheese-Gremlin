@@ -6,20 +6,49 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   rectMode(CENTER)
   textSize(24);
 
+  let vocalMap = map(vocal, 0, 100, 100, 1000);
   let drumMap = map(drum, 0, 100, 100, 1000);
   let bassMap = map(bass, 0, 100, 100, 1000);
+  let otherMap = map(other, 0, 100, 100, 1000);
+
 
 //base
-colorMode(HSB, 100);
-stroke (bass, 80, 80);
-fill (bass, 80, 80);
+stroke (255, 140, 219);
+fill (255, 140, 2195);
 strokeWeight (10)
 
-for (let i=0; i<=4; i++){
- let bassX=i*200
- ellipse (bassX+100, (bassMap*(i/10))+100, 100, 100);
+ellipse (200, bassMap, 100, 100);
 
-}
+//drum
+stroke (219, 140, 255);
+fill (219, 140, 255);
+strokeWeight (10)
+
+ellipse (400, drumMap, 100, 100);
+
+//other
+stroke (140, 159, 255);
+fill (140, 159, 255);
+strokeWeight (10)
+
+ellipse (600, otherMap, 100, 100);
+
+//vocal
+stroke (140, 236, 255);
+fill (140, 236, 255);
+strokeWeight (10)
+
+ellipse (800, vocalMap, 100, 100);
+
+// colorMode(HSB, 100);
+// stroke (bass, 80, 80);
+// fill (bass, 80, 80);
+// strokeWeight (10)
+// for (let i=0; i<=4; i++){
+//  let bassX=i*200
+//  ellipse (bassX+100, (bassMap*(i/10))+100, 100, 100);
+
+// }
   
 //drums
 // colorMode(RGB, 255);

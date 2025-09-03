@@ -12,6 +12,9 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   let otherMap = map(other, 0, 100, 100, 1000);
 
 
+//small visualizer
+push ();
+scale (0.1);
 //base
 stroke (255, 140, 219);
 fill (255, 140, 2195);
@@ -39,6 +42,8 @@ fill (140, 236, 255);
 strokeWeight (10)
 
 ellipse (800, vocalMap, 100, 100);
+
+pop ();
 
 // colorMode(HSB, 100);
 // stroke (bass, 80, 80);

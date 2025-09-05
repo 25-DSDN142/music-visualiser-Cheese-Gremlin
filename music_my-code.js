@@ -2,10 +2,17 @@
 //all variables
 let boba = (true);
   let cup = (true);
-  let cupOutline = (169, 169, 169); //colour of cup outline -best: (169, 169, 169)
-  let cap = (true);
-  let transparent = (true);
-  let transparentFill = ('rgba(196, 196, 196, 0.35)'); // set colour of transparent plactic of cup
+    let cupOutline = [169, 169, 169]; //colour of cup outline -best: (169, 169, 169)
+    let cupRim = [200, 200, 200]; //colour of rim -best: (200, 200, 200)
+    let cap = (true);
+    let cupHighlights = (true);
+    let cupHighlightColour = ['rgba(255, 255, 255, 0.56)'];
+    let transparent = (true);
+    let transparentFill = ('rgba(196, 196, 196, 0.2)'); // set colour of transparent plactic of cup
+  let liquid = (true);
+    let liquidOutlineColour = [235, 155, 255]; //medium purple [235, 155, 255]
+    let liquidColour1 = [236, 174, 250]; //light purple [236, 174, 250]
+    let liquidCOlour2 = [224, 106, 251]; //dark purple [224, 106, 251]
 let SmallVisualiser = (true);
 
 let firstRun = (true);
@@ -35,11 +42,70 @@ firstRun = (false);
 //image(myImage, 500, 170)
 pop ();
 
+
+if (liquid){
+push ();
+
+//top liquid fill
+  strokeWeight (0);
+  fill (liquidColour1);
+
+  beginShape();
+  vertex (835, 610);
+  quadraticVertex (900, 590, 980, 615);
+  quadraticVertex (1050, 640, 1125, 605);
+  quadraticVertex (1080, 560, 1000, 580);
+  quadraticVertex (980, 585, 940, 580);
+  quadraticVertex (890, 575, 835, 610);
+  endShape ();
+
+//lower liquid fill
+  strokeWeight (0);
+  fill (liquidColour1);
+
+  beginShape ();
+  vertex (835, 610);
+  vertex (850, 860);
+  quadraticVertex (980, 950, 1115, 860);
+  vertex (1125, 610)
+  quadraticVertex (980, 590, 835, 610)
+  endShape ();
+
+  
+
+//liquid outline
+  stroke (liquidOutlineColour);
+  strokeWeight (10);
+  noFill ();
+
+  beginShape(); //lower liquid line
+  vertex (835, 610);
+  quadraticVertex (900, 590, 980, 615);
+  quadraticVertex (1050, 640, 1125, 605);
+  endShape ();
+
+  beginShape(); //upper liquid line
+  vertex (835, 610);
+  quadraticVertex (890, 575, 940, 580);
+  quadraticVertex (980, 585, 1000, 580);
+  quadraticVertex (1080, 560, 1125, 600);
+  endShape ();
+  
+
+
+
+
+pop ();
+}
+
+
+
+
 if (cup){
 push ();
 
 //base
-
+  //outline
   stroke (cupOutline);
   strokeWeight (10);
   noFill ();
@@ -84,12 +150,6 @@ if (cap){
   if (transparent){
   fill (transparentFill); //transparent grey
 
-  beginShape (); //upper arc
-  curveVertex (827, 400);
-  curveVertex (810, 475);
-  curveVertex (1155, 475);
-  curveVertex (1132, 400);
-  endShape ();
   }
   else {
     noFill ();
@@ -102,13 +162,9 @@ if (cap){
   curveVertex (815, 500);
   curveVertex (815, 475);
   curveVertex (847, 405);
-  //curveVertex (860, 395);
-  //curveVertex (880, 380);
   curveVertex (920, 345); //hill
-  curveVertex (980, 350); //centre
+  curveVertex (980, 350); //centre dip
   curveVertex (1040, 345); //hill
-  //curveVertex (1080, 380);
-  //curveVertex (1100, 395);
   curveVertex (1113, 405);
   curveVertex (1145, 475);
   curveVertex (1145, 500);
@@ -116,34 +172,20 @@ if (cap){
 }
 
 //cup rim
-
-//fill
+  //fill
   
   strokeWeight (0);
-  fill (200, 200, 200);
+  fill (cupRim);
 
-  beginShape (); //lower arc
-  curveVertex (827, 400);
-  curveVertex (810, 527);
-  curveVertex (1155, 527);
-  curveVertex (1132, 400);
-  endShape ();
-
-  beginShape (); //walls
+  beginShape ();
   vertex (810, 475);
-  vertex (1155, 475);
+  quadraticVertex (980, 500, 1155, 475);
   vertex (1155, 527);
-  vertex (810, 527);
+  quadraticVertex (980, 550, 810, 527)
   endShape ();
 
-  erase ();
-  beginShape (); //upper arc
-  curveVertex (827, 400);
-  curveVertex (810, 475);
-  curveVertex (1155, 475);
-  curveVertex (1132, 400);
-  endShape ();
-  noErase ();
+
+
 
   if (cap){
   if (transparent){
@@ -159,7 +201,7 @@ if (cap){
   }
 
 
-//outline
+  //outline
   stroke (cupOutline);
   strokeWeight (10);
   noFill ();
@@ -185,10 +227,32 @@ if (cap){
   vertex (1155, 527);
   endShape ();
 
+if (cupHighlights){
+  strokeWeight (10);
+  stroke (cupHighlightColour);
 
+  line (863, 700, 870, 800); //highlight on cup base
+  line (872, 820, 873, 830);
+
+  beginShape (); //highlight on cup cap 
+  vertex (857, 430);
+  quadraticVertex (875, 400, 920, 370);
+  endShape ();
+  line (847, 452, 850, 445);
+
+
+
+}
 
 pop ();
 }
+
+
+
+
+
+
+
 
 }
 

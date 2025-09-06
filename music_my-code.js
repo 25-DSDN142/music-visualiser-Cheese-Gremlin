@@ -1,4 +1,7 @@
 
+//centre cup 980
+
+
 //all variables
 let boba = (true);
   let cup = (true);
@@ -6,13 +9,24 @@ let boba = (true);
     let cupRim = [200, 200, 200]; //colour of rim -best: (200, 200, 200)
     let cap = (true);
     let cupHighlights = (true);
-    let cupHighlightColour = ['rgba(255, 255, 255, 0.56)'];
+    let cupHighlightColour = ['rgba(255, 255, 255, 0.56)']; // -['rgba(255, 255, 255, 0.56)']
     let transparent = (true);
     let transparentFill = ('rgba(196, 196, 196, 0.2)'); // set colour of transparent plactic of cup
   let liquid = (true);
-    let liquidOutlineColour = [235, 155, 255]; //medium purple [235, 155, 255]
-    let liquidColour1 = [236, 174, 250]; //light purple [236, 174, 250]
-    let liquidCOlour2 = [224, 106, 251]; //dark purple [224, 106, 251]
+    //let liquidOutlineColour = [235, 155, 255]; //medium purple [235, 155, 255] (commented out as no longer used as its attached to soundMap)
+    //let liquidColour = [236, 174, 250]; //light purple [236, 174, 250] (commented out as no longer used as its attached to soundMap)
+  let balls = (true); //toggles boba balls
+    let ballOutline = (false);
+    let ballOutlineColour = [105, 15, 127]; //ball outline colour
+    //let ballColour = [122, 18, 148]; (commented out as no longer used as its attached to soundMap)
+    let ballSize = (45); //boba ball diamiter
+    //let ballY = (830); // height of boba balls (commented out as no longer used as its attached to soundMap)
+  let straw = (true);
+    let strawWidth = (55); //width of straw
+    //let strawTop = (215); //decides where top of straw ends (commented out as no longer used as its attached to a soundMap)
+    let strawBottom = (592); //where the bottom of the straw ends
+    let strawOutline = [247, 207, 139]; //colour of straw outline -[255, 218, 154]
+    let strawColour = [250, 220, 167]; //colour of strtaw centre -[255, 230, 186]
 let SmallVisualiser = (true);
 
 let firstRun = (true);
@@ -29,6 +43,21 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   let drumMapY = map(drum, 0, 100, 100, 1000);
   let bassMapY = map(bass, 0, 100, 100, 1000);
   let otherMapY = map(other, 0, 100, 100, 1000);
+
+//soundMaps for boba balls
+  let ballMapY1 = map(other, 0, 100, 830, 767); //centre and outer
+  let ballMapY2 = map(other, 0, 100, 830, 800); //middle lower
+  let ballMapY3 = map(other, 0, 100, 830, 733); //middle upper
+  let ballMapY4 = map(other, 0, 100, 830, 700); //outer upper and centre upper
+
+//soundMap for straw
+  let strawTop = map(bass, 0, 100, 250, 200); //strawTop variable above needs to be commented out for this to work
+
+//soundmap for liquid & boba ball colour
+  let liquidColour = [other, 50, 100];
+  let liquidOutlineColour = [other, 50, 80];
+  let ballColour = [other, 50, 50];
+  
 
 
 if (boba){
@@ -48,7 +77,8 @@ push ();
 
 //top liquid fill
   strokeWeight (0);
-  fill (liquidColour1);
+  colorMode(HSB, 100);
+  fill (liquidColour);
 
   beginShape();
   vertex (835, 610);
@@ -60,20 +90,19 @@ push ();
   endShape ();
 
 //lower liquid fill
-  strokeWeight (0);
-  fill (liquidColour1);
 
   beginShape ();
   vertex (835, 610);
   vertex (850, 860);
   quadraticVertex (980, 950, 1115, 860);
-  vertex (1125, 610)
-  quadraticVertex (980, 590, 835, 610)
+  vertex (1125, 610);
+  quadraticVertex (980, 590, 835, 610);
   endShape ();
 
   
 
 //liquid outline
+  colorMode (HSB, 100);
   stroke (liquidOutlineColour);
   strokeWeight (10);
   noFill ();
@@ -98,7 +127,52 @@ push ();
 pop ();
 }
 
+if (balls){
+push ();
+  if (ballOutline){
+  strokeWeight (10);
+  stroke (ballOutlineColour);
+  }
+  else {
+  strokeWeight (0);
+  }
+  colorMode (HSB, 100);
+  fill (ballColour);
 
+  ellipse (880, ballMapY1, ballSize, ballSize); //outer
+  ellipse (875, ballMapY4-50, ballSize, ballSize); //outer upper
+  ellipse (930, ballMapY3-25, ballSize, ballSize); //upper layer
+  ellipse (930, ballMapY2+25, ballSize, ballSize); 
+  ellipse (980, ballMapY1, ballSize, ballSize); //centre ball
+  ellipse (980, ballMapY4-55, ballSize, ballSize); //upper centre ball
+  ellipse (1030, ballMapY2+25, ballSize, ballSize); 
+  ellipse (1030, ballMapY3-25, ballSize, ballSize); //upper layer
+  ellipse (1085, ballMapY4-50, ballSize, ballSize); //outer upper
+  ellipse (1080, ballMapY1, ballSize, ballSize); //outer
+
+pop ();
+}
+
+
+if (straw){
+push ();
+  //outline
+  stroke (strawOutline);
+  strokeWeight (10);
+  fill (strawColour);
+
+  beginShape (); //straw base
+  vertex (980+(strawWidth/2), strawTop);
+  vertex (980+(strawWidth/2), strawBottom);
+  quadraticVertex (980, strawBottom+15, 980-(strawWidth/2), strawBottom);
+  vertex (980-(strawWidth/2), strawBottom);
+  vertex (980-(strawWidth/2), strawTop);
+  endShape ();
+  
+  ellipse (980, strawTop, strawWidth, 15); //straw top hole
+
+pop ();
+}
 
 
 if (cup){
@@ -181,7 +255,7 @@ if (cap){
   vertex (810, 475);
   quadraticVertex (980, 500, 1155, 475);
   vertex (1155, 527);
-  quadraticVertex (980, 550, 810, 527)
+  quadraticVertex (980, 550, 810, 527);
   endShape ();
 
 
@@ -209,23 +283,24 @@ if (cap){
   beginShape (); //lower arc
   curveVertex (827, 400);
   curveVertex (810, 527);
-  curveVertex (1155, 527);
+  curveVertex (1150, 527);
   curveVertex (1132, 400);
   endShape ();
 
   beginShape (); //upper arc
   curveVertex (827, 400);
   curveVertex (810, 475);
-  curveVertex (1155, 475);
+  curveVertex (1150, 475);
   curveVertex (1132, 400);
   endShape ();
 
   beginShape (LINES); //walls
   vertex (810, 475);
   vertex (810, 527);
-  vertex (1155, 475);
-  vertex (1155, 527);
+  vertex (1150, 475);
+  vertex (1150, 527);
   endShape ();
+
 
 if (cupHighlights){
   strokeWeight (10);
@@ -240,17 +315,18 @@ if (cupHighlights){
   endShape ();
   line (847, 452, 850, 445);
 
+  beginShape (); //highlight on rim
+  vertex (830, 505);
+  quadraticVertex (900, 515, 970, 513.5);
+  endShape ();
+  line (990, 513.5, 1005, 513);
+
 
 
 }
 
 pop ();
 }
-
-
-
-
-
 
 
 
@@ -263,28 +339,28 @@ scale (0.1);
 //base
 stroke (255, 140, 219);
 fill (255, 140, 2195);
-strokeWeight (10)
+strokeWeight (10);
 
 ellipse (200, bassMapY, 100, 100);
 
 //drum
 stroke (219, 140, 255);
 fill (219, 140, 255);
-strokeWeight (10)
+strokeWeight (10);
 
 ellipse (400, drumMapY, 100, 100);
 
 //other
 stroke (140, 159, 255);
 fill (140, 159, 255);
-strokeWeight (10)
+strokeWeight (10);
 
 ellipse (600, otherMapY, 100, 100);
 
 //vocal
 stroke (140, 236, 255);
 fill (140, 236, 255);
-strokeWeight (10)
+strokeWeight (10);
 
 ellipse (800, vocalMapY, 100, 100);
 

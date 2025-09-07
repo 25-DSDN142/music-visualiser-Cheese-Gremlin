@@ -1,32 +1,37 @@
 
 //centre cup 980
+// all variable colours in HSB unless otherwise stated
 
 
 //all variables
 let boba = (true);
   let cup = (true);
-    let cupOutline = [169, 169, 169]; //colour of cup outline -best: (169, 169, 169)
-    let cupRim = [200, 200, 200]; //colour of rim -best: (200, 200, 200)
+    let cupOutline = [0, 0, 66.3]; //colour of cup outline -best: rgb:(169, 169, 169)
+    let cupRim = [0, 0, 78.4]; //colour of rim -best: rgb:(200, 200, 200)
     let cap = (true);
     let cupHighlights = (true);
-    let cupHighlightColour = ['rgba(255, 255, 255, 0.56)']; // -['rgba(255, 255, 255, 0.56)']
+    let cupHighlightColour = ['rgba(255, 255, 255, 0.31)']; // -['rgba(255, 255, 255, 0.56)']
     let transparent = (true);
     let transparentFill = ('rgba(196, 196, 196, 0.2)'); // set colour of transparent plactic of cup
   let liquid = (true);
-    //let liquidOutlineColour = [235, 155, 255]; //medium purple [235, 155, 255] (commented out as no longer used as its attached to soundMap)
-    //let liquidColour = [236, 174, 250]; //light purple [236, 174, 250] (commented out as no longer used as its attached to soundMap)
+    //let liquidOutlineColour = [288, 39.2, 100]; //medium purple rgb:[235, 155, 255] (commented out as no longer used as its attached to soundMap)
+    //let liquidColour = [289, 30.4, 98]; //light purple rgb:[236, 174, 250] (commented out as no longer used as its attached to soundMap)
   let balls = (true); //toggles boba balls
     let ballOutline = (false);
-    let ballOutlineColour = [105, 15, 127]; //ball outline colour
-    //let ballColour = [122, 18, 148]; (commented out as no longer used as its attached to soundMap)
+    let ballOutlineColour = [288, 88.2, 49.8]; //ball outline colour
+    //let ballColour = [288, 87.8, 58]; (commented out as no longer used as its attached to soundMap)
     let ballSize = (45); //boba ball diamiter
     //let ballY = (830); // height of boba balls (commented out as no longer used as its attached to soundMap)
   let straw = (true);
     let strawWidth = (55); //width of straw
     //let strawTop = (215); //decides where top of straw ends (commented out as no longer used as its attached to a soundMap)
     let strawBottom = (592); //where the bottom of the straw ends
-    let strawOutline = [247, 207, 139]; //colour of straw outline -[255, 218, 154]
-    let strawColour = [250, 220, 167]; //colour of strtaw centre -[255, 230, 186]
+    let strawOutline = [38, 43.7, 96.9]; //colour of straw outline -rgb:[255, 218, 154] -rgb:[247, 207, 139]
+    let strawColour = [38, 33.2, 98]; //colour of strtaw centre -rgb:[255, 230, 186] -rgb:[250, 220, 167]
+let lights = (true);
+  let stringColour = [0, 0, 50];
+  let starOutline = [0, 0, 50];
+  let starColour = [55, 100, 100];
 let SmallVisualiser = (true);
 
 let firstRun = (true);
@@ -34,15 +39,22 @@ let myImage;
 
 // vocal, drum, bass, and other are volumes ranging from 0 to 100
 function draw_one_frame(words, vocal, drum, bass, other, counter) {
-  background(20)
+  background(30)
   textFont('Verdana'); // please use CSS safe fonts
   rectMode(CENTER)
   textSize(24);
 
+//sounMaps for small music Visualizer
   let vocalMapY = map(vocal, 0, 100, 100, 1000);
   let drumMapY = map(drum, 0, 100, 100, 1000);
   let bassMapY = map(bass, 0, 100, 100, 1000);
   let otherMapY = map(other, 0, 100, 100, 1000);
+
+//map to HSB colourMode
+  let vocalHSBMap = map(vocal, 0, 100, 0, 360);
+  let drumHSBMap = map(drum, 0, 100, 0, 360);
+  let bassHSBMap = map(bass, 0, 100, 0, 360);
+  let otherHSBMap = map(other, 0, 100, 0, 360);
 
 //soundMaps for boba balls
   let ballMapY1 = map(other, 0, 100, 830, 767); //centre and outer
@@ -53,23 +65,37 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 //soundMap for straw
   let strawTop = map(bass, 0, 100, 250, 200); //strawTop variable above needs to be commented out for this to work
 
-//soundmap for liquid & boba ball colour
-  let liquidColour = [other, 50, 100];
-  let liquidOutlineColour = [other, 50, 80];
-  let ballColour = [other, 50, 50];
+//soundmap for liquid & boba ball colour (full spectrum colours)
+  // let liquidColour = [otherHSBMap, 50, 100];
+  // let liquidOutlineColour = [otherHSBMap, 50, 80];
+  // let ballColour = [otherHSBMap, 50, 50];
+//soundmap for liquid & boba ball colour (purple spectrum)
+  let bobaColourMap = map(other, 0, 100, 300, 250); //changing values of "other" to be within desired colour range (purple)
+  let liquidColour = [bobaColourMap, 50, 100];
+  let liquidOutlineColour = [bobaColourMap, 50, 80];
+  let ballColour = [bobaColourMap, 50, 50];
   
-
-
-if (boba){
-
+  
+// loading in reffernce images 
 push ();
 scale (1.2);
 if (firstRun){
-myImage = loadImage ('Boba.png')
+boba = loadImage ('Boba.png');
+lights = loadImage ('Lights.png');
 firstRun = (false);
 }
-//image(myImage, 500, 170)
+//image (boba, 500, 170);
+image (lights, 0, 0, 960, 540);
+image (lights, 1100, 0, 960, 540);
 pop ();
+
+
+colorMode(HSB);
+
+if (boba){
+push ();
+translate (100, 300)
+scale (0.6);
 
 
 if (liquid){
@@ -77,7 +103,6 @@ push ();
 
 //top liquid fill
   strokeWeight (0);
-  colorMode(HSB, 100);
   fill (liquidColour);
 
   beginShape();
@@ -102,7 +127,6 @@ push ();
   
 
 //liquid outline
-  colorMode (HSB, 100);
   stroke (liquidOutlineColour);
   strokeWeight (10);
   noFill ();
@@ -136,7 +160,6 @@ push ();
   else {
   strokeWeight (0);
   }
-  colorMode (HSB, 100);
   fill (ballColour);
 
   ellipse (880, ballMapY1, ballSize, ballSize); //outer
@@ -329,12 +352,140 @@ pop ();
 }
 
 
-
+pop ();
 }
 
+if (lights){
+push ();
+
+//string
+  stroke (stringColour);
+  strokeWeight (3.5);
+  noFill ();
+
+  beginShape ();
+  vertex (0, 75);
+  quadraticVertex (15, 75, 75, 20);
+  quadraticVertex (230, 210, 385, 20);
+  quadraticVertex (470, 100, 570, 20);
+  quadraticVertex (700, 200, 845, 20);
+  quadraticVertex (950, 160, 1065, 25);
+  quadraticVertex (1220, 220, 1400, 20);
+  quadraticVertex (1550, 200, 1705, 20);
+  quadraticVertex (1800, 100, 1890, 20);
+  quadraticVertex (1910, 45, 1920, 50);
+  endShape ();
+
+//stars are drawn outside of 
+//fairy lights stars
+
+  function star(X, Y) { //75, 20
+  //fill
+  strokeWeight (0)
+  fill (starColour);
+  beginShape ();
+  vertex (X+3, Y-11); //tip
+  vertex (X+7, Y-2);
+  vertex (X+18, Y-1);
+  vertex (X+10, Y+7);
+  vertex (X+13, Y+18);
+  vertex (X+3, Y+13); //base
+  vertex (X-7, Y+18);
+  vertex (X-5, Y+7);
+  vertex (X-14, Y-1);
+  vertex (X-3, Y-2);
+  vertex (X+3, Y-11);
+  endShape ();
+
+  //outline
+  stroke (starOutline);
+  strokeWeight (3.5);
+  noFill ();
+
+  beginShape (LINES);
+  vertex (X+3, Y-11); //tip
+  vertex (X+7, Y-2);
+  vertex (X+18, Y-1);
+  vertex (X+10, Y+7);
+  vertex (X+13, Y+18);
+  vertex (X+3, Y+13); //base
+  vertex (X-7, Y+18);
+  vertex (X-5, Y+7);
+  vertex (X-14, Y-1);
+  vertex (X-3, Y-2);
+  vertex (X+3, Y-11);
+  endShape ();
+
+  beginShape (LINES);
+  vertex (X+7, Y-2);
+  vertex (X+18, Y-1);
+  vertex (X+10, Y+7);
+  vertex (X+13, Y+18);
+  vertex (X+3, Y+13); //base
+  vertex (X-7, Y+18);
+  vertex (X-5, Y+7);
+  vertex (X-14, Y-1);
+  vertex (X-3, Y-2);
+  vertex (X+3, Y-11);
+  endShape ();
+  }
+//drawing individual stars
+push();
+rotate (-15)
+star (8, 78);
+pop ();
+star (75, 20); //1st tip
+push();
+rotate (20)
+star (155, 42);
+pop ();
+star (225, 127);
+push();
+rotate (-25)
+star (260, 221);
+pop ();
+star (385, 20); //2nd tip
+star (490, 70);
+star (570, 20); //3rd tip
+push();
+rotate (19)
+star (610, -117);
+pop ();
+star (700, 122);
+push();
+rotate (-15)
+star (720, 298);
+pop ();
+star (845, 20); //4th tip
+push();
+rotate (15)
+star (900, -145);
+pop ();
+push();
+rotate (-15)
+star (960, 345);
+pop ();
+star (1065, 25); //5th tip
+push();
+rotate (15)
+star (1110, -195);
+pop ();
+star (1235, 133);
+push();
+rotate (-15)
+star (1290, 425);
+pop ();
+star (1400, 20); //6th tip
+star (1705, 20); //7th tip
+star (1890, 20); //8th tip
+
+
+pop ();
+}
 
 if (SmallVisualiser) {
 push ();
+colorMode (RGB);
 scale (0.1);
 //base
 stroke (255, 140, 219);

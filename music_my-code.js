@@ -81,14 +81,15 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   let starColour = [55, starColourMap, 100];
   
   
-// loading in reffernce images 
+// loading in reffernce and background images 
 push ();
-scale (1.2);
 if (firstRun){
 boba = loadImage ('Boba.png');
 lights = loadImage ('Lights.png');
+wallpaper = loadImage ('CafeBackground.png');
 firstRun = (false);
 }
+image (wallpaper, 0, 0);
 //image (boba, 500, 170);
 //image (lights, 0, 0, 960, 540);
 //image (lights, 1100, 0, 960, 540);
@@ -99,8 +100,8 @@ colorMode(HSB);
 
 if (boba){
 push ();
-translate (100, 300)
-scale (0.6);
+translate (1000, 330)
+scale (0.75);
 
 
 if (liquid){

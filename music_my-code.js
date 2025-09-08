@@ -29,9 +29,10 @@ let boba = (true);
     let strawOutline = [38, 43.7, 96.9]; //colour of straw outline -rgb:[255, 218, 154] -rgb:[247, 207, 139]
     let strawColour = [38, 33.2, 98]; //colour of strtaw centre -rgb:[255, 230, 186] -rgb:[250, 220, 167]
 let lights = (true);
-  let stringColour = [0, 0, 50];
-  let starOutline = [0, 0, 50];
-  let starColour = [55, 100, 100];
+  let stars = (true);
+  let stringColour = [0, 0, 0];
+  let starOutline = [0, 0, 0];
+  //let starColour = [55, 100, 100]; //(commented out as no longer used as its attached to soundMap)
 let SmallVisualiser = (true);
 
 let firstRun = (true);
@@ -74,6 +75,10 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   let liquidColour = [bobaColourMap, 50, 100];
   let liquidOutlineColour = [bobaColourMap, 50, 80];
   let ballColour = [bobaColourMap, 50, 50];
+
+//soundmap for stars
+  let starColourMap = map (bass, 0, 100, 100, 30); //changes value of "drum" to change lightness/ whitness of yellow in stars
+  let starColour = [55, starColourMap, 100];
   
   
 // loading in reffernce images 
@@ -85,8 +90,8 @@ lights = loadImage ('Lights.png');
 firstRun = (false);
 }
 //image (boba, 500, 170);
-image (lights, 0, 0, 960, 540);
-image (lights, 1100, 0, 960, 540);
+//image (lights, 0, 0, 960, 540);
+//image (lights, 1100, 0, 960, 540);
 pop ();
 
 
@@ -430,6 +435,7 @@ push ();
   endShape ();
   }
 //drawing individual stars
+if (stars){
 push();
 rotate (-15)
 star (8, 78);
@@ -445,16 +451,16 @@ rotate (-25)
 star (260, 221);
 pop ();
 star (385, 20); //2nd tip
-star (490, 70);
+star (477, 72);
 star (570, 20); //3rd tip
 push();
 rotate (19)
 star (610, -117);
 pop ();
-star (700, 122);
+star (705, 121);
 push();
-rotate (-15)
-star (720, 298);
+rotate (-20)
+star (730, 348);
 pop ();
 star (845, 20); //4th tip
 push();
@@ -463,7 +469,7 @@ star (900, -145);
 pop ();
 push();
 rotate (-15)
-star (960, 345);
+star (960, 343);
 pop ();
 star (1065, 25); //5th tip
 push();
@@ -472,12 +478,23 @@ star (1110, -195);
 pop ();
 star (1235, 133);
 push();
-rotate (-15)
-star (1290, 425);
+rotate (-20)
+star (1230, 543);
 pop ();
 star (1400, 20); //6th tip
+push();
+rotate (15)
+star (1430, -290);
+pop ();
+star (1550, 122);
+push();
+rotate (-15)
+star (1573, 510);
+pop ();
 star (1705, 20); //7th tip
+star (1800, 71);
 star (1890, 20); //8th tip
+}
 
 
 pop ();

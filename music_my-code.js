@@ -4,6 +4,16 @@
 
 
 //all variables
+let pancake = (true);
+  let plateOutline = [0, 0, 66];
+  let plateColour = [0, 0, 79];
+  let pancakeOutline = [31, 61, 72]; //-[31, 61, 72]
+  let pancakeTop = [31, 60, 76]; //-[31, 60, 76]
+  let pancakeBottom = [31, 65, 79];
+  let syrupOutline = [35, 54, 78];
+  let syrupColour = ['rgba(223, 169, 92, 0.71)'];
+  let berryOutline = [229, 67, 69];
+  let berryColour = [216, 68, 76];
 let boba = (true);
   let cup = (true);
     let cupOutline = [0, 0, 66.3]; //colour of cup outline -best: rgb:(169, 169, 169)
@@ -77,7 +87,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   let ballColour = [bobaColourMap, 50, 50];
 
 //soundmap for stars
-  let starColourMap = map (bass, 0, 100, 100, 30); //changes value of "drum" to change lightness/ whitness of yellow in stars
+  let starColourMap = map (drum, 0, 100, 100, 30); //changes value of "drum" to change lightness/ whitness of yellow in stars
   let starColour = [55, starColourMap, 100];
   
   
@@ -86,10 +96,16 @@ push ();
 if (firstRun){
 boba = loadImage ('Boba.png');
 lights = loadImage ('Lights.png');
-wallpaper = loadImage ('CafeBackground.png');
+backgroundImage = loadImage ('CafeBackground.png');
+pancakeImage = loadImage ('Pancake.png');
 firstRun = (false);
 }
-image (wallpaper, 0, 0);
+image (backgroundImage, 0, 0);
+// push ();
+// translate (-120, -50);
+// scale (1.1);
+// image (pancakeImage, 0, 0);
+// pop ();
 //image (boba, 500, 170);
 //image (lights, 0, 0, 960, 540);
 //image (lights, 1100, 0, 960, 540);
@@ -97,6 +113,93 @@ pop ();
 
 
 colorMode(HSB);
+
+if (counter>600&&counter<1200){ //stuff starts hapenning after 10 seconds and stops after 20seconds
+
+}
+
+if (pancake){
+push ();
+//plate
+  stroke (plateOutline);
+  fill (plateColour);
+  strokeWeight (8);
+  ellipse (1285, 950, 520, 190);
+  ellipse (1285, 950, 430, 130);
+//pancake
+  function drawPancake (pancakeX, pancakeY){
+  stroke (pancakeOutline);
+  strokeWeight (8);
+  fill (pancakeBottom);
+  beginShape ();
+  vertex (pancakeX-150, pancakeY-10);
+  quadraticVertex (pancakeX-210, pancakeY+60, pancakeX, pancakeY+65);
+  quadraticVertex (pancakeX+210, pancakeY +60, pancakeX+150, pancakeY-10)
+  endShape ();
+  fill (pancakeTop)
+  ellipse (pancakeX, pancakeY, 310, 80);
+  }
+
+  drawPancake (1285, 920);
+  drawPancake (1280, 880);
+  drawPancake (1285, 840);
+  drawPancake (1280, 800); //top pancake
+
+//syrup
+  strokeWeight (8);
+  stroke (syrupOutline);
+  fill (syrupColour);
+  beginShape ();
+  vertex (1180, 770);
+  quadraticVertex (1285, 750, 1400, 773);
+  quadraticVertex (1430, 780, 1400, 800);
+  quadraticVertex (1390, 810, 1405, 820);
+  quadraticVertex (1420, 825, 1410, 870);
+  quadraticVertex (1400, 890, 1410, 920);
+  quadraticVertex (1410, 940, 1390, 930);
+  quadraticVertex (1380, 920, 1385, 890);
+  quadraticVertex (1385, 845, 1350, 850);
+  quadraticVertex (1330, 860, 1335, 880);
+  quadraticVertex (1340, 890, 1335, 900);
+  quadraticVertex (1325, 910, 1315, 900);
+  quadraticVertex (1310, 890, 1312, 870);
+  quadraticVertex (1310, 855, 1290, 850);
+  quadraticVertex (1275, 850, 1270, 865);
+  quadraticVertex (1265, 880, 1270, 900);
+  quadraticVertex (1275, 915, 1273, 930);
+  quadraticVertex (1260, 950, 1245, 930);
+  quadraticVertex (1240, 920, 1240, 900);
+  quadraticVertex (1245, 880, 1220, 875);
+  quadraticVertex (1205, 875, 1210, 900);
+  quadraticVertex (1215, 910, 1205, 915);
+  quadraticVertex (1190, 915, 1185, 900);
+  quadraticVertex (1180, 890, 1180, 880);
+  quadraticVertex (1175, 850, 1150, 855);
+  quadraticVertex (1130, 850, 1150, 830);
+  quadraticVertex (1155, 820, 1145, 810);
+  quadraticVertex (1110, 790, 1180, 770);
+  endShape ();
+
+// blueberries
+  function drawBerry (berryX, berryY){
+    strokeWeight (8);
+    stroke (berryOutline);
+    fill (berryColour);
+    ellipse (berryX, berryY, 50, 30);
+    beginShape ();
+    vertex (berryX-7, berryY-3);
+    quadraticVertex (berryX-5, berryY, berryX+5, berryY-2);
+    endShape ();
+  }
+  drawBerry (1280, 800);
+  drawBerry (1250, 762);
+  drawBerry (1190, 810);
+  drawBerry (1350, 810);
+  drawBerry (1380, 775);
+
+
+pop ();
+}
 
 if (boba){
 push ();
@@ -385,22 +488,22 @@ push ();
 //stars are drawn outside of 
 //fairy lights stars
 
-  function star(X, Y) { //75, 20
+  function star(starX, starY) { //75, 20
   //fill
   strokeWeight (0)
   fill (starColour);
   beginShape ();
-  vertex (X+3, Y-11); //tip
-  vertex (X+7, Y-2);
-  vertex (X+18, Y-1);
-  vertex (X+10, Y+7);
-  vertex (X+13, Y+18);
-  vertex (X+3, Y+13); //base
-  vertex (X-7, Y+18);
-  vertex (X-5, Y+7);
-  vertex (X-14, Y-1);
-  vertex (X-3, Y-2);
-  vertex (X+3, Y-11);
+  vertex (starX+3, starY-11); //tip
+  vertex (starX+7, starY-2);
+  vertex (starX+18, starY-1);
+  vertex (starX+10, starY+7);
+  vertex (starX+13, starY+18);
+  vertex (starX+3, starY+13); //base
+  vertex (starX-7, starY+18);
+  vertex (starX-5, starY+7);
+  vertex (starX-14, starY-1);
+  vertex (starX-3, starY-2);
+  vertex (starX+3, starY-11);
   endShape ();
 
   //outline
@@ -409,30 +512,30 @@ push ();
   noFill ();
 
   beginShape (LINES);
-  vertex (X+3, Y-11); //tip
-  vertex (X+7, Y-2);
-  vertex (X+18, Y-1);
-  vertex (X+10, Y+7);
-  vertex (X+13, Y+18);
-  vertex (X+3, Y+13); //base
-  vertex (X-7, Y+18);
-  vertex (X-5, Y+7);
-  vertex (X-14, Y-1);
-  vertex (X-3, Y-2);
-  vertex (X+3, Y-11);
+  vertex (starX+3, starY-11); //tip
+  vertex (starX+7, starY-2);
+  vertex (starX+18, starY-1);
+  vertex (starX+10, starY+7);
+  vertex (starX+13, starY+18);
+  vertex (starX+3, starY+13); //base
+  vertex (starX-7, starY+18);
+  vertex (starX-5, starY+7);
+  vertex (starX-14, starY-1);
+  vertex (starX-3, starY-2);
+  vertex (starX+3, starY-11);
   endShape ();
 
   beginShape (LINES);
-  vertex (X+7, Y-2);
-  vertex (X+18, Y-1);
-  vertex (X+10, Y+7);
-  vertex (X+13, Y+18);
-  vertex (X+3, Y+13); //base
-  vertex (X-7, Y+18);
-  vertex (X-5, Y+7);
-  vertex (X-14, Y-1);
-  vertex (X-3, Y-2);
-  vertex (X+3, Y-11);
+  vertex (starX+7, starY-2);
+  vertex (starX+18, starY-1);
+  vertex (starX+10, starY+7);
+  vertex (starX+13, starY+18);
+  vertex (starX+3, starY+13); //base
+  vertex (starX-7, starY+18);
+  vertex (starX-5, starY+7);
+  vertex (starX-14, starY-1);
+  vertex (starX-3, starY-2);
+  vertex (starX+3, starY-11);
   endShape ();
   }
 //drawing individual stars

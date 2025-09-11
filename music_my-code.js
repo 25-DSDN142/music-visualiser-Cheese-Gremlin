@@ -5,13 +5,14 @@
 
 //all variables
 let pancake = (true);
-  let plateOutline = [0, 0, 66];
-  let plateColour = [0, 0, 79];
+  let plateOutline = [227, 46, 70];
+  let plateColour = [227, 40, 70];
   let pancakeOutline = [31, 61, 72]; //-[31, 61, 72]
   let pancakeTop = [31, 60, 76]; //-[31, 60, 76]
   let pancakeBottom = [31, 65, 79];
-  let syrupOutline = [35, 54, 78];
-  let syrupColour = ['rgba(223, 169, 92, 0.71)'];
+  let syrup = (true);
+    let syrupOutline = [35, 54, 78];
+    let syrupColour = ['rgba(223, 169, 92, 0.71)'];
   let berryOutline = [229, 67, 69];
   let berryColour = [216, 68, 76];
 let boba = (true);
@@ -27,8 +28,8 @@ let boba = (true);
     //let liquidOutlineColour = [288, 39.2, 100]; //medium purple rgb:[235, 155, 255] (commented out as no longer used as its attached to soundMap)
     //let liquidColour = [289, 30.4, 98]; //light purple rgb:[236, 174, 250] (commented out as no longer used as its attached to soundMap)
   let balls = (true); //toggles boba balls
-    let ballOutline = (false);
-    let ballOutlineColour = [288, 88.2, 49.8]; //ball outline colour
+    let ballOutline = (true);
+    //let ballOutlineColour = [288, 88.2, 49.8]; (commented out as no longer used as its attached to soundMap)
     //let ballColour = [288, 87.8, 58]; (commented out as no longer used as its attached to soundMap)
     let ballSize = (45); //boba ball diamiter
     //let ballY = (830); // height of boba balls (commented out as no longer used as its attached to soundMap)
@@ -84,11 +85,18 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   let bobaColourMap = map(other, 0, 100, 300, 250); //changing values of "other" to be within desired colour range (purple)
   let liquidColour = [bobaColourMap, 50, 100];
   let liquidOutlineColour = [bobaColourMap, 50, 80];
-  let ballColour = [bobaColourMap, 50, 50];
+  let ballColour = [bobaColourMap, 50, 60];
+  let ballOutlineColour = [bobaColourMap, 50, 50];
 
 //soundmap for stars
   let starColourMap = map (drum, 0, 100, 100, 30); //changes value of "drum" to change lightness/ whitness of yellow in stars
   let starColour = [55, starColourMap, 100];
+
+//soundmap for syrup
+  let syrupMap = map (drum, 0, 100, 0, 30);
+
+//soundmap for blueberries
+  let berryMap = map (drum, 0, 100, 0, -10);
   
   
 // loading in reffernce and background images 
@@ -98,9 +106,13 @@ boba = loadImage ('Boba.png');
 lights = loadImage ('Lights.png');
 backgroundImage = loadImage ('CafeBackground.png');
 pancakeImage = loadImage ('Pancake.png');
+cakeImage = loadImage ('Cake.png');
+cocoaImage = loadImage ('Cocoa.png');
 firstRun = (false);
 }
 image (backgroundImage, 0, 0);
+image (cakeImage, 0, 0);
+image (cocoaImage, 0, 0);
 // push ();
 // translate (-120, -50);
 // scale (1.1);
@@ -146,6 +158,12 @@ push ();
   drawPancake (1280, 800); //top pancake
 
 //syrup
+if (syrup){
+  push ();
+  
+  // scale (1, syrupMap, 1);
+  // translate (0, -syrupMap*5);
+
   strokeWeight (8);
   stroke (syrupOutline);
   fill (syrupColour);
@@ -155,30 +173,33 @@ push ();
   quadraticVertex (1430, 780, 1400, 800);
   quadraticVertex (1390, 810, 1405, 820);
   quadraticVertex (1420, 825, 1410, 870);
-  quadraticVertex (1400, 890, 1410, 920);
-  quadraticVertex (1410, 940, 1390, 930);
-  quadraticVertex (1380, 920, 1385, 890);
+  quadraticVertex (1400, 890, 1410, 920+syrupMap);
+  quadraticVertex (1410, 940+syrupMap, 1390, 930+syrupMap);
+  quadraticVertex (1380, 920+syrupMap, 1385, 890+syrupMap);
   quadraticVertex (1385, 845, 1350, 850);
   quadraticVertex (1330, 860, 1335, 880);
-  quadraticVertex (1340, 890, 1335, 900);
-  quadraticVertex (1325, 910, 1315, 900);
-  quadraticVertex (1310, 890, 1312, 870);
+  quadraticVertex (1340, 890, 1335, 900+syrupMap);
+  quadraticVertex (1325, 910+syrupMap, 1315, 900+syrupMap);
+  quadraticVertex (1310, 890+syrupMap, 1312, 870+syrupMap);
   quadraticVertex (1310, 855, 1290, 850);
   quadraticVertex (1275, 850, 1270, 865);
   quadraticVertex (1265, 880, 1270, 900);
-  quadraticVertex (1275, 915, 1273, 930);
-  quadraticVertex (1260, 950, 1245, 930);
-  quadraticVertex (1240, 920, 1240, 900);
+  quadraticVertex (1275, 915, 1273, 930+syrupMap);
+  quadraticVertex (1260, 950+syrupMap, 1245, 930+syrupMap);
+  quadraticVertex (1240, 920+syrupMap, 1240, 900);
   quadraticVertex (1245, 880, 1220, 875);
   quadraticVertex (1205, 875, 1210, 900);
-  quadraticVertex (1215, 910, 1205, 915);
-  quadraticVertex (1190, 915, 1185, 900);
-  quadraticVertex (1180, 890, 1180, 880);
+  quadraticVertex (1215, 910+syrupMap, 1205, 915+syrupMap);
+  quadraticVertex (1190, 915+syrupMap, 1185, 900+syrupMap);
+  quadraticVertex (1180, 890+syrupMap, 1180, 880);
   quadraticVertex (1175, 850, 1150, 855);
   quadraticVertex (1130, 850, 1150, 830);
   quadraticVertex (1155, 820, 1145, 810);
   quadraticVertex (1110, 790, 1180, 770);
   endShape ();
+
+  pop ();
+}
 
 // blueberries
   function drawBerry (berryX, berryY){
@@ -191,11 +212,11 @@ push ();
     quadraticVertex (berryX-5, berryY, berryX+5, berryY-2);
     endShape ();
   }
-  drawBerry (1280, 800);
-  drawBerry (1250, 762);
-  drawBerry (1190, 810);
-  drawBerry (1350, 810);
-  drawBerry (1380, 775);
+  drawBerry (1280, 800-(berryMap)); //middle berry
+  drawBerry (1250, 762+(berryMap*0.8)); //top left berry
+  drawBerry (1190, 810+(berryMap*1.5)); //bottom left berry
+  drawBerry (1350, 810-(berryMap*2)); //bottom right berry
+  drawBerry (1380, 775+berryMap); //top right berry
 
 
 pop ();

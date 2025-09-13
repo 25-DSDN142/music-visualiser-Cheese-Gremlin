@@ -4,6 +4,19 @@
 
 
 //all variables
+let cocoa = (true);
+  let spoonOutline = [0, 0, 66.3];
+  let spoonColour = [0, 0, 78.4];
+  let cocoaColour = [25, 93, 39];
+  let creamOutline = [37, 19, 96];
+  let creamColour = [38, 11, 100];
+  let shmellowOutline = [347, 21, 100];
+  let shmellowColour = [348, 17, 100];
+let cake = (true);
+  let cakeOutline = [25, 93, 39];
+  let cakeColour = [25, 76, 42];
+  let icingOutline = [327, 48, 100];
+  let icingColour = [328, 33, 98];
 let pancake = (true);
   let plateOutline = [227, 46, 70];
   let plateColour = [227, 40, 70];
@@ -68,37 +81,40 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   let bassHSBMap = map(bass, 0, 100, 0, 360);
   let otherHSBMap = map(other, 0, 100, 0, 360);
 
-//soundMaps for boba balls
-  let ballMapY1 = map(other, 0, 100, 830, 767); //centre and outer
-  let ballMapY2 = map(other, 0, 100, 830, 800); //middle lower
-  let ballMapY3 = map(other, 0, 100, 830, 733); //middle upper
-  let ballMapY4 = map(other, 0, 100, 830, 700); //outer upper and centre upper
+//Boba SoundMap
+  //soundMaps for boba balls
+    let ballMapY1 = map(other, 0, 100, 830, 767); //centre and outer
+    let ballMapY2 = map(other, 0, 100, 830, 800); //middle lower
+    let ballMapY3 = map(other, 0, 100, 830, 733); //middle upper
+    let ballMapY4 = map(other, 0, 100, 830, 700); //outer upper and centre upper
+  //soundMap for straw
+    let strawTop = map(other, 0, 100, 250, 200); //strawTop variable above needs to be commented out for this to work
+  //soundmap for liquid & boba ball colour (full spectrum colours)
+    // let liquidColour = [otherHSBMap, 50, 100];
+    // let liquidOutlineColour = [otherHSBMap, 50, 80];
+    // let ballColour = [otherHSBMap, 50, 50];
+  //soundmap for liquid & boba ball colour (purple spectrum)
+    let bobaColourMap = map(other, 0, 100, 300, 250); //changing values of "other" to be within desired colour range (purple)
+    let liquidColour = [bobaColourMap, 50, 100];
+    let liquidOutlineColour = [bobaColourMap, 50, 80];
+    let ballColour = [bobaColourMap, 50, 60];
+    let ballOutlineColour = [bobaColourMap, 50, 50];
 
-//soundMap for straw
-  let strawTop = map(bass, 0, 100, 250, 200); //strawTop variable above needs to be commented out for this to work
-
-//soundmap for liquid & boba ball colour (full spectrum colours)
-  // let liquidColour = [otherHSBMap, 50, 100];
-  // let liquidOutlineColour = [otherHSBMap, 50, 80];
-  // let ballColour = [otherHSBMap, 50, 50];
-//soundmap for liquid & boba ball colour (purple spectrum)
-  let bobaColourMap = map(other, 0, 100, 300, 250); //changing values of "other" to be within desired colour range (purple)
-  let liquidColour = [bobaColourMap, 50, 100];
-  let liquidOutlineColour = [bobaColourMap, 50, 80];
-  let ballColour = [bobaColourMap, 50, 60];
-  let ballOutlineColour = [bobaColourMap, 50, 50];
-
-//soundmap for stars
+//Stars soundMap
   let starColourMap = map (drum, 0, 100, 100, 30); //changes value of "drum" to change lightness/ whitness of yellow in stars
   let starColour = [55, starColourMap, 100];
 
-//soundmap for syrup
+//Pancake SoundMap
   let syrupMap = map (drum, 0, 100, 0, 30);
-
-//soundmap for blueberries
   let berryMap = map (drum, 0, 100, 0, -10);
-  
-  
+
+//Cocoa SoundMap
+  let shmelloMap = map (other, 0, 100, -5, 7);
+  let spoonMap = map (other, 0, 100, 0, 20);
+
+//Cake SoundMap
+  let icingMap = map (bass, 0, 100, 0, 7);
+  let creamMap = map (bass, 0, 100, -5, 10)
 // loading in reffernce and background images 
 push ();
 if (firstRun){
@@ -111,8 +127,8 @@ cocoaImage = loadImage ('Cocoa.png');
 firstRun = (false);
 }
 image (backgroundImage, 0, 0);
-image (cakeImage, 0, 0);
-image (cocoaImage, 0, 0);
+//image (cakeImage, 0, 0);
+//image (cocoaImage, 0, 0);
 // push ();
 // translate (-120, -50);
 // scale (1.1);
@@ -128,6 +144,202 @@ colorMode(HSB);
 
 if (counter>600&&counter<1200){ //stuff starts hapenning after 10 seconds and stops after 20seconds
 
+}
+
+if (cocoa){
+push ();
+//Plate
+  strokeWeight (8);
+  stroke (plateOutline);
+  fill (plateColour);
+  ellipse (385, 705, 180, 50);
+  ellipse (385, 705, 80, 20);
+
+//spoon
+  strokeWeight (8);
+  stroke (plateOutline);
+  fill (plateColour);
+  push ();
+  rotate (-25);
+  translate (-265, 60);
+  rect (340, 600, 15, 50+spoonMap, 10);
+  pop ();
+//Cup
+  strokeWeight (8);
+  stroke (plateOutline);
+  fill (plateColour);
+  beginShape (); //handle
+  vertex (445, 625);
+  quadraticVertex (475, 620, 475, 640);
+  quadraticVertex (475, 660, 440, 670);
+  vertex (440, 660);
+  quadraticVertex (465, 650, 465, 640);
+  quadraticVertex (465, 630, 445, 635);
+  endShape ();
+
+  beginShape (); //cup base
+  vertex (325, 610);
+  quadraticVertex (325, 705, 385, 705);
+  quadraticVertex (445, 705, 445, 610);
+  endShape ();
+
+  fill (cocoaColour);
+  strokeWeight (0);
+  ellipse (385, 610, 120, 25); //cocoa liquid
+  noFill ();
+
+  strokeWeight (8);
+  ellipse (385, 610, 120, 25); //cup rim
+
+//Toppings 
+//cream
+  strokeWeight (0);
+  fill (creamColour);
+  beginShape();
+  vertex (340, 615);
+  quadraticVertex (330, 600, 350, 590);
+  quadraticVertex (345, 575, 365, 570);
+  quadraticVertex (385, 568, 390, 555);
+  quadraticVertex (415, 560, 410, 575);
+  quadraticVertex (425, 580, 422, 592);
+  quadraticVertex (440, 600, 430, 615);
+  quadraticVertex (385, 630, 340, 615);
+  endShape ();
+  
+  //outline (drawn in seperate "swoops" to keep round edges. when all conected, corner become pointy)
+  strokeWeight (8);
+  stroke (creamOutline);
+  noFill ();
+  beginShape();
+  vertex (340, 615);
+  quadraticVertex (330, 600, 350, 590);
+  endShape ();
+  beginShape ();
+  vertex (350, 590);
+  quadraticVertex (345, 575, 365, 570);
+  quadraticVertex (385, 568, 390, 555);
+  endShape ();
+  beginShape ();
+  vertex (390, 555);
+  quadraticVertex (415, 560, 410, 575);
+  quadraticVertex (400, 585, 385, 583);
+  endShape ();
+  beginShape ();
+  vertex (410, 575);
+  quadraticVertex (425, 580, 422, 592);
+  quadraticVertex (410, 605, 370, 600);
+  endShape ();
+  beginShape ();
+  vertex (422, 592);
+  quadraticVertex (440, 600, 430, 615);
+  endShape ();
+
+//marshmellows
+  strokeWeight (8);
+  stroke (shmellowOutline);
+  fill (shmellowColour);
+
+  function shmello (shmelloX, shmelloY){
+  rect (shmelloX, shmelloY, 30, 25, 10);
+
+  }
+  push ();
+  rotate (25);
+  translate (205, -210);
+  shmello (370-shmelloMap, 600-shmelloMap);
+  pop ();
+  push ();
+  rotate (-45);
+  translate (-490, 110);
+  shmello (370+shmelloMap, 600+shmelloMap);
+  pop ();
+
+  //drawing half the rim again to cover toppings
+  strokeWeight (8);
+  stroke (plateOutline);
+  noFill ();
+  angleMode (DEGREES)
+  arc (385, 610, 120, 25, 0, 180);
+
+
+pop ();
+}
+
+if (cake){
+push ();
+//plate 
+  strokeWeight (8);
+  stroke (plateOutline);
+  fill (plateColour);
+
+  ellipse (145, 755, 350, 120);
+  ellipse (145, 755, 290, 75);
+//cake part
+  strokeWeight (0);
+  stroke (cakeOutline);
+  fill (cakeColour);
+
+  beginShape (); // cake fill
+  vertex (230, 770);
+  vertex (235, 680);
+  vertex (50, 670)
+  vertex (48, 760)
+  endShape (CLOSE);
+
+  strokeWeight (8);
+  line (230, 770, 235, 680); //main cake outline
+  line (235, 680, 50, 670);
+  line (50, 670, 48, 760);
+  line (48, 760, 230, 770);
+  line (50, 737.5, 230, 747.5); //lowest cake layer
+  line (50, 715, 230, 725);
+  line (50, 692.5, 230, 702.5);
+
+//icing
+  strokeWeight (8);
+  stroke (icingOutline);
+  fill (icingColour);
+
+
+  beginShape (); //drip
+  vertex (120, 645);
+  vertex (50, 668);
+  quadraticVertex (42, 670, 47, 700); 
+  quadraticVertex (50, 710, 48, 730);
+  quadraticVertex (45, 740, 46, 750);
+  quadraticVertex (50, 765+icingMap, 60, 755+icingMap); //drip tip
+  quadraticVertex (68, 745, 65, 735);
+  quadraticVertex (60, 720, 68, 700);
+  quadraticVertex (73, 685, 95, 690);
+  quadraticVertex (120, 700+icingMap, 140, 690);
+  quadraticVertex (150, 685, 165, 695);
+  quadraticVertex (190, 710+icingMap, 210, 695);
+  quadraticVertex (215, 690, 225, 695);
+  quadraticVertex (240, 700+icingMap, 243, 690);
+  quadraticVertex (243, 680, 235, 678); //right tip
+  vertex (120, 645);
+  endShape ();
+
+  strokeWeight (7);
+  line (65, 673, 100, 675); //trianle line
+  line (120, 676, 200, 682);
+
+//cream
+  strokeWeight (8);
+  stroke (creamOutline);
+  fill (creamColour);
+
+  beginShape ();
+  vertex (120, 620-creamMap);
+  quadraticVertex (115, 635, 100, 640);
+  quadraticVertex (80, 650, 90, 660);
+  quadraticVertex (120, 675, 150, 660);
+  quadraticVertex (160, 650, 140, 640);
+  quadraticVertex (125, 635, 120, 620-creamMap);
+  endShape ();
+
+
+pop ();
 }
 
 if (pancake){

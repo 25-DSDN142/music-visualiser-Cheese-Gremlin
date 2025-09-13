@@ -10,13 +10,13 @@ let cocoa = (true);
   let cocoaColour = [25, 93, 39];
   let creamOutline = [37, 19, 96];
   let creamColour = [38, 11, 100];
-  let shmellowOutline = [347, 21, 100];
-  let shmellowColour = [348, 17, 100];
+  let shmellowOutline = [310, 21, 100]; //-[347, 21, 100]
+  let shmellowColour = [310, 17, 100]; //-[348, 17, 100]
 let cake = (true);
   let cakeOutline = [25, 93, 39];
   let cakeColour = [25, 76, 42];
-  let icingOutline = [327, 48, 100];
-  let icingColour = [328, 33, 98];
+  //let icingOutline = [327, 48, 100]; (commented out as no longer used as its attached to soundMap)
+  //let icingColour = [328, 33, 98]; (commented out as no longer used as its attached to soundMap)
 let pancake = (true);
   let plateOutline = [227, 46, 70];
   let plateColour = [227, 40, 70];
@@ -52,6 +52,7 @@ let boba = (true);
     let strawBottom = (592); //where the bottom of the straw ends
     let strawOutline = [38, 43.7, 96.9]; //colour of straw outline -rgb:[255, 218, 154] -rgb:[247, 207, 139]
     let strawColour = [38, 33.2, 98]; //colour of strtaw centre -rgb:[255, 230, 186] -rgb:[250, 220, 167]
+let oldLights = (false);
 let lights = (true);
   let stars = (true);
   let stringColour = [0, 0, 0];
@@ -98,10 +99,10 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     let liquidColour = [bobaColourMap, 50, 100];
     let liquidOutlineColour = [bobaColourMap, 50, 80];
     let ballColour = [bobaColourMap, 50, 60];
-    let ballOutlineColour = [bobaColourMap, 50, 50];
+    let ballOutlineColour = [bobaColourMap, 50, 55];
 
 //Stars soundMap
-  let starColourMap = map (drum, 0, 100, 100, 30); //changes value of "drum" to change lightness/ whitness of yellow in stars
+  let starColourMap = map (bass, 0, 100, 100, 20); //changes value of "drum" to change lightness/ whitness of yellow in stars
   let starColour = [55, starColourMap, 100];
 
 //Pancake SoundMap
@@ -114,16 +115,26 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 
 //Cake SoundMap
   let icingMap = map (bass, 0, 100, 0, 7);
-  let creamMap = map (bass, 0, 100, -5, 10)
+  let icingColourMap = map(bass, 0, 100, 320, 280); 
+  let icingColour = [icingColourMap, 40, 100];
+  let icingOutline = [icingColourMap, 48, 92];
+
+  let creamMap = map (bass, 0, 100, -5, 10);
+
+//plants SoundMap
+  let plantsMap = map (drum, 0, 100, 1, 1.1);
+
 // loading in reffernce and background images 
 push ();
 if (firstRun){
 boba = loadImage ('Boba.png');
 lights = loadImage ('Lights.png');
-backgroundImage = loadImage ('CafeBackground.png');
+backgroundImage = loadImage ('cafe background without plants.png');
 pancakeImage = loadImage ('Pancake.png');
 cakeImage = loadImage ('Cake.png');
 cocoaImage = loadImage ('Cocoa.png');
+flowerImage = loadImage ('Flower.png');
+plantImage = loadImage ('Plant.png');
 firstRun = (false);
 }
 image (backgroundImage, 0, 0);
@@ -141,10 +152,12 @@ pop ();
 
 
 colorMode(HSB);
+angleMode (DEGREES);
 
 if (counter>600&&counter<1200){ //stuff starts hapenning after 10 seconds and stops after 20seconds
 
 }
+
 
 if (cocoa){
 push ();
@@ -258,7 +271,6 @@ push ();
   strokeWeight (8);
   stroke (plateOutline);
   noFill ();
-  angleMode (DEGREES)
   arc (385, 610, 120, 25, 0, 180);
 
 
@@ -337,6 +349,8 @@ push ();
   quadraticVertex (160, 650, 140, 640);
   quadraticVertex (125, 635, 120, 620-creamMap);
   endShape ();
+
+  arc (120, 650, 20, 3, 0, 180);
 
 
 pop ();
@@ -697,7 +711,7 @@ pop ();
 pop ();
 }
 
-if (lights){
+if (oldLights){
 push ();
 
 //string
@@ -837,6 +851,219 @@ star (1890, 20); //8th tip
 pop ();
 }
 
+if (lights){
+// star function
+  function star1(starX, starY) { //75, 20
+    //fill
+    strokeWeight (0)
+    fill (starColour);
+    beginShape ();
+    vertex (starX+3, starY-11); //tip
+    vertex (starX+7, starY-2);
+    vertex (starX+18, starY-1);
+    vertex (starX+10, starY+7);
+    vertex (starX+13, starY+18);
+    vertex (starX+3, starY+13); //base
+    vertex (starX-7, starY+18);
+    vertex (starX-5, starY+7);
+    vertex (starX-14, starY-1);
+    vertex (starX-3, starY-2);
+    vertex (starX+3, starY-11);
+    endShape ();
+    //outline
+    stroke (starOutline);
+    strokeWeight (3.5);
+    noFill ();
+
+    beginShape (LINES);
+    vertex (starX+3, starY-11); //tip
+    vertex (starX+7, starY-2);
+    vertex (starX+18, starY-1);
+    vertex (starX+10, starY+7);
+    vertex (starX+13, starY+18);
+    vertex (starX+3, starY+13); //base
+    vertex (starX-7, starY+18);
+    vertex (starX-5, starY+7);
+    vertex (starX-14, starY-1);
+    vertex (starX-3, starY-2);
+    vertex (starX+3, starY-11);
+    endShape ();
+
+    beginShape (LINES);
+    vertex (starX+7, starY-2);
+    vertex (starX+18, starY-1);
+    vertex (starX+10, starY+7);
+    vertex (starX+13, starY+18);
+    vertex (starX+3, starY+13); //base
+    vertex (starX-7, starY+18);
+    vertex (starX-5, starY+7);
+    vertex (starX-14, starY-1);
+    vertex (starX-3, starY-2);
+    vertex (starX+3, starY-11);
+    endShape ();
+  }
+  function star2(starX, starY) { //75, 20
+    //fill
+    strokeWeight (0)
+    fill (starColour);
+    beginShape ();
+    vertex (starX+8, starY-10); //tip
+    vertex (starX+8, starY-1);
+    vertex (starX+17, starY+5);
+    vertex (starX+8, starY+8);
+    vertex (starX+5, starY+20);
+    vertex (starX-1, starY+12); //base
+    vertex (starX-13, starY+12);
+    vertex (starX-7, starY+3);
+    vertex (starX-11, starY-8);
+    vertex (starX-1, starY-5);
+    endShape ();
+    //outline
+    stroke (starOutline); //starOutline
+    strokeWeight (3.5);
+    noFill ();
+
+    beginShape (LINES);
+    vertex (starX+8, starY-10); //tip
+    vertex (starX+8, starY-1);
+    vertex (starX+17, starY+5);
+    vertex (starX+8, starY+8);
+    vertex (starX+5, starY+20);
+    vertex (starX-1, starY+12); //base
+    vertex (starX-13, starY+12);
+    vertex (starX-7, starY+3);
+    vertex (starX-11, starY-8);
+    vertex (starX-1, starY-5);
+    endShape ();
+
+    beginShape (LINES);
+    vertex (starX-1, starY-5);
+    vertex (starX+8, starY-10); //tip
+    vertex (starX+8, starY-1);
+    vertex (starX+17, starY+5);
+    vertex (starX+8, starY+8);
+    vertex (starX+5, starY+20);
+    vertex (starX-1, starY+12); //base
+    vertex (starX-13, starY+12);
+    vertex (starX-7, starY+3);
+    vertex (starX-11, starY-8);
+    endShape ();
+  }
+  function star3(starX, starY) { //75, 20
+    //fill
+    strokeWeight (0)
+    fill (starColour);
+    beginShape ();
+    vertex (starX-3, starY-11); //tip
+    vertex (starX+4, starY-5);
+    vertex (starX+15, starY-8);
+    vertex (starX+11, starY+2);
+    vertex (starX+18, starY+11);
+    vertex (starX+8, starY+11); //base
+    vertex (starX, starY+19);
+    vertex (starX-2, starY+9);
+    vertex (starX-14, starY+5);
+    vertex (starX-5, starY);
+    endShape ();
+    //outline
+    stroke (starOutline);
+    strokeWeight (3.5);
+    noFill ();
+
+    beginShape (LINES);
+    vertex (starX-3, starY-11); //tip
+    vertex (starX+4, starY-5);
+    vertex (starX+15, starY-8);
+    vertex (starX+11, starY+2);
+    vertex (starX+18, starY+11);
+    vertex (starX+8, starY+11); //base
+    vertex (starX, starY+19);
+    vertex (starX-2, starY+9);
+    vertex (starX-14, starY+5);
+    vertex (starX-5, starY);
+    endShape ();
+
+    beginShape (LINES);
+    vertex (starX+4, starY-5);
+    vertex (starX+15, starY-8);
+    vertex (starX+11, starY+2);
+    vertex (starX+18, starY+11);
+    vertex (starX+8, starY+11); //base
+    vertex (starX, starY+19);
+    vertex (starX-2, starY+9);
+    vertex (starX-14, starY+5);
+    vertex (starX-5, starY);
+    vertex (starX-3, starY-11); //tip
+    endShape ();
+  }
+//lower Shelf
+  //string
+    stroke (stringColour);
+    strokeWeight (5);
+    noFill ();
+
+    beginShape ();
+    vertex (790, 543);
+    quadraticVertex (870, 630, 950, 543);
+    quadraticVertex (1100, 660, 1250, 543);
+    quadraticVertex (1360, 640, 1470, 543);
+    endShape ();
+  //stars
+    star2 (815, 582);
+    star1 (870, 598); //first swoop
+    star3 (925, 580);
+
+    star2 (1020, 598);
+    star1 (1100, 612); //second swoop
+    star3 (1180, 598);
+
+    star2 (1295, 590);
+    star1 (1360, 604); //third swoop
+    star3 (1425, 589);
+
+//upper shelf
+  //string
+    stroke (stringColour);
+    strokeWeight (5);
+    noFill ();
+
+    beginShape ();
+    vertex (1240, 253);
+    quadraticVertex (1380, 320, 1520, 253);
+    quadraticVertex (1600, 305, 1680, 253);
+    quadraticVertex (1800, 325, 1940, 253);
+    endShape ();
+  //star
+    star2 (1300, 289);
+    star1 (1380, 300); //first swoop
+    star3 (1460, 289);
+
+    star2 (1560, 285); //second swoop
+    star3 (1640, 285);
+
+    star2 (1725, 289);
+    star1 (1800, 301); //third swoop
+    star3 (1875, 290);
+
+
+
+
+
+//moving plants
+push ();
+translate (950, 500);
+scale (1, plantsMap);
+image (flowerImage, -200, -310); 
+pop ();
+
+
+push ();
+translate (1770, 200);
+scale (1, plantsMap)
+image (plantImage, -230, -220);
+pop ();
+
+
 if (SmallVisualiser) {
 push ();
 colorMode (RGB);
@@ -907,4 +1134,4 @@ pop ();
 
 
 
-
+}

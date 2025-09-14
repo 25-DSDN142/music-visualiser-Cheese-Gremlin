@@ -4,6 +4,12 @@
 
 
 //all variables
+let BobaX = (310);
+let PancakeX = (50);
+let PancakeY = (300);
+let CocoaX = (-300);
+let CocoaY = (20);
+let CakeX = (-100);
 let cocoa = (true);
   let spoonOutline = [0, 0, 66.3];
   let spoonColour = [0, 0, 78.4];
@@ -154,300 +160,98 @@ pop ();
 colorMode(HSB);
 angleMode (DEGREES);
 
-if (counter>600&&counter<1200){ //stuff starts hapenning after 10 seconds and stops after 20seconds
-
-}
-
-
-if (cocoa){
-push ();
-//Plate
-  strokeWeight (8);
-  stroke (plateOutline);
-  fill (plateColour);
-  ellipse (385, 705, 180, 50);
-  ellipse (385, 705, 80, 20);
-
-//spoon
-  strokeWeight (8);
-  stroke (plateOutline);
-  fill (plateColour);
+//pancake couner
+  if (counter>100 && counter<10800){
   push ();
-  rotate (-25);
-  translate (-265, 60);
-  rect (340, 600, 15, 50+spoonMap, 10);
+    if (BobaX>0){
+    BobaX = BobaX-3
+    translate (BobaX, 0); //when X=310 boba is off-screen
+    }
+    BOBA ();
   pop ();
-//Cup
-  strokeWeight (8);
-  stroke (plateOutline);
-  fill (plateColour);
-  beginShape (); //handle
-  vertex (445, 625);
-  quadraticVertex (475, 620, 475, 640);
-  quadraticVertex (475, 660, 440, 670);
-  vertex (440, 660);
-  quadraticVertex (465, 650, 465, 640);
-  quadraticVertex (465, 630, 445, 635);
-  endShape ();
-
-  beginShape (); //cup base
-  vertex (325, 610);
-  quadraticVertex (325, 705, 385, 705);
-  quadraticVertex (445, 705, 445, 610);
-  endShape ();
-
-  fill (cocoaColour);
-  strokeWeight (0);
-  ellipse (385, 610, 120, 25); //cocoa liquid
-  noFill ();
-
-  strokeWeight (8);
-  ellipse (385, 610, 120, 25); //cup rim
-
-//Toppings 
-//cream
-  strokeWeight (0);
-  fill (creamColour);
-  beginShape();
-  vertex (340, 615);
-  quadraticVertex (330, 600, 350, 590);
-  quadraticVertex (345, 575, 365, 570);
-  quadraticVertex (385, 568, 390, 555);
-  quadraticVertex (415, 560, 410, 575);
-  quadraticVertex (425, 580, 422, 592);
-  quadraticVertex (440, 600, 430, 615);
-  quadraticVertex (385, 630, 340, 615);
-  endShape ();
-  
-  //outline (drawn in seperate "swoops" to keep round edges. when all conected, corner become pointy)
-  strokeWeight (8);
-  stroke (creamOutline);
-  noFill ();
-  beginShape();
-  vertex (340, 615);
-  quadraticVertex (330, 600, 350, 590);
-  endShape ();
-  beginShape ();
-  vertex (350, 590);
-  quadraticVertex (345, 575, 365, 570);
-  quadraticVertex (385, 568, 390, 555);
-  endShape ();
-  beginShape ();
-  vertex (390, 555);
-  quadraticVertex (415, 560, 410, 575);
-  quadraticVertex (400, 585, 385, 583);
-  endShape ();
-  beginShape ();
-  vertex (410, 575);
-  quadraticVertex (425, 580, 422, 592);
-  quadraticVertex (410, 605, 370, 600);
-  endShape ();
-  beginShape ();
-  vertex (422, 592);
-  quadraticVertex (440, 600, 430, 615);
-  endShape ();
-
-//marshmellows
-  strokeWeight (8);
-  stroke (shmellowOutline);
-  fill (shmellowColour);
-
-  function shmello (shmelloX, shmelloY){
-  rect (shmelloX, shmelloY, 30, 25, 10);
-
   }
+    if (counter>10800){
   push ();
-  rotate (25);
-  translate (205, -210);
-  shmello (370-shmelloMap, 600-shmelloMap);
+    if (BobaX<310){
+    BobaX = BobaX+3
+    translate (BobaX, 0); //when X=310 boba is off-screen
+    BOBA ();
+    }
+
   pop ();
+  }
+//pancake counter
+  if (counter>2850  && counter<10200){
   push ();
-  rotate (-45);
-  translate (-490, 110);
-  shmello (370+shmelloMap, 600+shmelloMap);
+    if (PancakeX>0){
+    PancakeX = PancakeX-0.7
+    }
+    if (PancakeY>0){
+    PancakeY = PancakeY-4
+    }
+    translate (PancakeX, PancakeY); //when X=310 boba is off-screen
+    PANCAKE ();
   pop ();
-
-  //drawing half the rim again to cover toppings
-  strokeWeight (8);
-  stroke (plateOutline);
-  noFill ();
-  arc (385, 610, 120, 25, 0, 180);
-
-
-pop ();
-}
-
-if (cake){
-push ();
-//plate 
-  strokeWeight (8);
-  stroke (plateOutline);
-  fill (plateColour);
-
-  ellipse (145, 755, 350, 120);
-  ellipse (145, 755, 290, 75);
-//cake part
-  strokeWeight (0);
-  stroke (cakeOutline);
-  fill (cakeColour);
-
-  beginShape (); // cake fill
-  vertex (230, 770);
-  vertex (235, 680);
-  vertex (50, 670)
-  vertex (48, 760)
-  endShape (CLOSE);
-
-  strokeWeight (8);
-  line (230, 770, 235, 680); //main cake outline
-  line (235, 680, 50, 670);
-  line (50, 670, 48, 760);
-  line (48, 760, 230, 770);
-  line (50, 737.5, 230, 747.5); //lowest cake layer
-  line (50, 715, 230, 725);
-  line (50, 692.5, 230, 702.5);
-
-//icing
-  strokeWeight (8);
-  stroke (icingOutline);
-  fill (icingColour);
-
-
-  beginShape (); //drip
-  vertex (120, 645);
-  vertex (50, 668);
-  quadraticVertex (42, 670, 47, 700); 
-  quadraticVertex (50, 710, 48, 730);
-  quadraticVertex (45, 740, 46, 750);
-  quadraticVertex (50, 765+icingMap, 60, 755+icingMap); //drip tip
-  quadraticVertex (68, 745, 65, 735);
-  quadraticVertex (60, 720, 68, 700);
-  quadraticVertex (73, 685, 95, 690);
-  quadraticVertex (120, 700+icingMap, 140, 690);
-  quadraticVertex (150, 685, 165, 695);
-  quadraticVertex (190, 710+icingMap, 210, 695);
-  quadraticVertex (215, 690, 225, 695);
-  quadraticVertex (240, 700+icingMap, 243, 690);
-  quadraticVertex (243, 680, 235, 678); //right tip
-  vertex (120, 645);
-  endShape ();
-
-  strokeWeight (7);
-  line (65, 673, 100, 675); //trianle line
-  line (120, 676, 200, 682);
-
-//cream
-  strokeWeight (8);
-  stroke (creamOutline);
-  fill (creamColour);
-
-  beginShape ();
-  vertex (120, 620-creamMap);
-  quadraticVertex (115, 635, 100, 640);
-  quadraticVertex (80, 650, 90, 660);
-  quadraticVertex (120, 675, 150, 660);
-  quadraticVertex (160, 650, 140, 640);
-  quadraticVertex (125, 635, 120, 620-creamMap);
-  endShape ();
-
-  arc (120, 650, 20, 3, 0, 180);
-
-
-pop ();
-}
-
-if (pancake){
-push ();
-//plate
-  stroke (plateOutline);
-  fill (plateColour);
-  strokeWeight (8);
-  ellipse (1285, 950, 520, 190);
-  ellipse (1285, 950, 430, 130);
-//pancake
-  function drawPancake (pancakeX, pancakeY){
-  stroke (pancakeOutline);
-  strokeWeight (8);
-  fill (pancakeBottom);
-  beginShape ();
-  vertex (pancakeX-150, pancakeY-10);
-  quadraticVertex (pancakeX-210, pancakeY+60, pancakeX, pancakeY+65);
-  quadraticVertex (pancakeX+210, pancakeY +60, pancakeX+150, pancakeY-10)
-  endShape ();
-  fill (pancakeTop)
-  ellipse (pancakeX, pancakeY, 310, 80);
+  }
+    if (counter>10200){
+  push ();
+    if (PancakeX<50){
+    PancakeX = PancakeX+0.7
+    }
+    if (PancakeY<300){
+    PancakeY = PancakeY+4
+    translate (PancakeX, PancakeY); //when X=310 boba is off-screen
+    PANCAKE ();
+    }
+  pop ();
+  }
+//cocoa counter
+  if (counter>1550 && counter<8800){
+  push ();
+    if (CocoaX<0){
+    CocoaX = CocoaX+4
+    }
+    if (CocoaY>0){
+    CocoaY = CocoaY-0.3
+    }
+    translate (CocoaX, CocoaY); //when X=310 boba is off-screen
+    COCOA ();
+  pop ();
+  }
+    if (counter>8800){
+  push ();
+    if (CocoaX>-300){
+    CocoaX = CocoaX-4
+    }
+    if (CocoaY<20){
+    CocoaY = CocoaY+0.3
+    translate (CocoaX, CocoaY); //when X=310 boba is off-screen
+    COCOA ();
+    }
+  pop ();
+  }
+//cake counter
+  if (counter>4800 && counter<6900){
+  push ();
+    if (CakeX<0){
+    CakeX = CakeX+3
+    }
+    translate (CakeX, 0); //when X=310 boba is off-screen
+    CAKE ();
+  pop ();
+  }
+    if (counter>6900){
+  push ();
+    if (CakeX>-200){
+    CakeX = CakeX-3
+    translate (CakeX, 0); //when X=310 boba is off-screen
+    CAKE ();
+  }
+  pop ();
   }
 
-  drawPancake (1285, 920);
-  drawPancake (1280, 880);
-  drawPancake (1285, 840);
-  drawPancake (1280, 800); //top pancake
 
-//syrup
-if (syrup){
-  push ();
-  
-  // scale (1, syrupMap, 1);
-  // translate (0, -syrupMap*5);
-
-  strokeWeight (8);
-  stroke (syrupOutline);
-  fill (syrupColour);
-  beginShape ();
-  vertex (1180, 770);
-  quadraticVertex (1285, 750, 1400, 773);
-  quadraticVertex (1430, 780, 1400, 800);
-  quadraticVertex (1390, 810, 1405, 820);
-  quadraticVertex (1420, 825, 1410, 870);
-  quadraticVertex (1400, 890, 1410, 920+syrupMap);
-  quadraticVertex (1410, 940+syrupMap, 1390, 930+syrupMap);
-  quadraticVertex (1380, 920+syrupMap, 1385, 890+syrupMap);
-  quadraticVertex (1385, 845, 1350, 850);
-  quadraticVertex (1330, 860, 1335, 880);
-  quadraticVertex (1340, 890, 1335, 900+syrupMap);
-  quadraticVertex (1325, 910+syrupMap, 1315, 900+syrupMap);
-  quadraticVertex (1310, 890+syrupMap, 1312, 870+syrupMap);
-  quadraticVertex (1310, 855, 1290, 850);
-  quadraticVertex (1275, 850, 1270, 865);
-  quadraticVertex (1265, 880, 1270, 900);
-  quadraticVertex (1275, 915, 1273, 930+syrupMap);
-  quadraticVertex (1260, 950+syrupMap, 1245, 930+syrupMap);
-  quadraticVertex (1240, 920+syrupMap, 1240, 900);
-  quadraticVertex (1245, 880, 1220, 875);
-  quadraticVertex (1205, 875, 1210, 900);
-  quadraticVertex (1215, 910+syrupMap, 1205, 915+syrupMap);
-  quadraticVertex (1190, 915+syrupMap, 1185, 900+syrupMap);
-  quadraticVertex (1180, 890+syrupMap, 1180, 880);
-  quadraticVertex (1175, 850, 1150, 855);
-  quadraticVertex (1130, 850, 1150, 830);
-  quadraticVertex (1155, 820, 1145, 810);
-  quadraticVertex (1110, 790, 1180, 770);
-  endShape ();
-
-  pop ();
-}
-
-// blueberries
-  function drawBerry (berryX, berryY){
-    strokeWeight (8);
-    stroke (berryOutline);
-    fill (berryColour);
-    ellipse (berryX, berryY, 50, 30);
-    beginShape ();
-    vertex (berryX-7, berryY-3);
-    quadraticVertex (berryX-5, berryY, berryX+5, berryY-2);
-    endShape ();
-  }
-  drawBerry (1280, 800-(berryMap)); //middle berry
-  drawBerry (1250, 762+(berryMap*0.8)); //top left berry
-  drawBerry (1190, 810+(berryMap*1.5)); //bottom left berry
-  drawBerry (1350, 810-(berryMap*2)); //bottom right berry
-  drawBerry (1380, 775+berryMap); //top right berry
-
-
-pop ();
-}
-
+function BOBA () {
 if (boba){
 push ();
 translate (1000, 330)
@@ -710,6 +514,309 @@ pop ();
 
 pop ();
 }
+}
+
+function PANCAKE (movePancakeX, movePancakeY) {
+push ();
+if (pancake){
+push ();
+//plate
+  stroke (plateOutline);
+  fill (plateColour);
+  strokeWeight (8);
+  ellipse (1285, 950, 520, 190);
+  ellipse (1285, 950, 430, 130);
+//pancake
+  function drawPancake (pancakeX, pancakeY){
+  stroke (pancakeOutline);
+  strokeWeight (8);
+  fill (pancakeBottom);
+  beginShape ();
+  vertex (pancakeX-150, pancakeY-10);
+  quadraticVertex (pancakeX-210, pancakeY+60, pancakeX, pancakeY+65);
+  quadraticVertex (pancakeX+210, pancakeY +60, pancakeX+150, pancakeY-10)
+  endShape ();
+  fill (pancakeTop)
+  ellipse (pancakeX, pancakeY, 310, 80);
+  }
+
+  drawPancake (1285, 920);
+  drawPancake (1280, 880);
+  drawPancake (1285, 840);
+  drawPancake (1280, 800); //top pancake
+
+//syrup
+if (syrup){
+  push ();
+  
+  // scale (1, syrupMap, 1);
+  // translate (0, -syrupMap*5);
+
+  strokeWeight (8);
+  stroke (syrupOutline);
+  fill (syrupColour);
+  beginShape ();
+  vertex (1180, 770);
+  quadraticVertex (1285, 750, 1400, 773);
+  quadraticVertex (1430, 780, 1400, 800);
+  quadraticVertex (1390, 810, 1405, 820);
+  quadraticVertex (1420, 825, 1410, 870);
+  quadraticVertex (1400, 890, 1410, 920+syrupMap);
+  quadraticVertex (1410, 940+syrupMap, 1390, 930+syrupMap);
+  quadraticVertex (1380, 920+syrupMap, 1385, 890+syrupMap);
+  quadraticVertex (1385, 845, 1350, 850);
+  quadraticVertex (1330, 860, 1335, 880);
+  quadraticVertex (1340, 890, 1335, 900+syrupMap);
+  quadraticVertex (1325, 910+syrupMap, 1315, 900+syrupMap);
+  quadraticVertex (1310, 890+syrupMap, 1312, 870+syrupMap);
+  quadraticVertex (1310, 855, 1290, 850);
+  quadraticVertex (1275, 850, 1270, 865);
+  quadraticVertex (1265, 880, 1270, 900);
+  quadraticVertex (1275, 915, 1273, 930+syrupMap);
+  quadraticVertex (1260, 950+syrupMap, 1245, 930+syrupMap);
+  quadraticVertex (1240, 920+syrupMap, 1240, 900);
+  quadraticVertex (1245, 880, 1220, 875);
+  quadraticVertex (1205, 875, 1210, 900);
+  quadraticVertex (1215, 910+syrupMap, 1205, 915+syrupMap);
+  quadraticVertex (1190, 915+syrupMap, 1185, 900+syrupMap);
+  quadraticVertex (1180, 890+syrupMap, 1180, 880);
+  quadraticVertex (1175, 850, 1150, 855);
+  quadraticVertex (1130, 850, 1150, 830);
+  quadraticVertex (1155, 820, 1145, 810);
+  quadraticVertex (1110, 790, 1180, 770);
+  endShape ();
+
+  pop ();
+}
+
+// blueberries
+  function drawBerry (berryX, berryY){
+    strokeWeight (8);
+    stroke (berryOutline);
+    fill (berryColour);
+    ellipse (berryX, berryY, 50, 30);
+    beginShape ();
+    vertex (berryX-7, berryY-3);
+    quadraticVertex (berryX-5, berryY, berryX+5, berryY-2);
+    endShape ();
+  }
+  drawBerry (1280, 800-(berryMap)); //middle berry
+  drawBerry (1250, 762+(berryMap*0.8)); //top left berry
+  drawBerry (1190, 810+(berryMap*1.5)); //bottom left berry
+  drawBerry (1350, 810-(berryMap*2)); //bottom right berry
+  drawBerry (1380, 775+berryMap); //top right berry
+
+
+pop ();
+}
+pop ();
+}
+
+function COCOA (moveCocaoX, moveCocoaY) {
+push ();
+if (cocoa){
+push ();
+//Plate
+  strokeWeight (8);
+  stroke (plateOutline);
+  fill (plateColour);
+  ellipse (385, 705, 180, 50);
+  ellipse (385, 705, 80, 20);
+
+//spoon
+  strokeWeight (8);
+  stroke (plateOutline);
+  fill (plateColour);
+  push ();
+  rotate (-25);
+  translate (-265, 60);
+  rect (340, 600, 15, 50+spoonMap, 10);
+  pop ();
+//Cup
+  strokeWeight (8);
+  stroke (plateOutline);
+  fill (plateColour);
+  beginShape (); //handle
+  vertex (445, 625);
+  quadraticVertex (475, 620, 475, 640);
+  quadraticVertex (475, 660, 440, 670);
+  vertex (440, 660);
+  quadraticVertex (465, 650, 465, 640);
+  quadraticVertex (465, 630, 445, 635);
+  endShape ();
+
+  beginShape (); //cup base
+  vertex (325, 610);
+  quadraticVertex (325, 705, 385, 705);
+  quadraticVertex (445, 705, 445, 610);
+  endShape ();
+
+  fill (cocoaColour);
+  strokeWeight (0);
+  ellipse (385, 610, 120, 25); //cocoa liquid
+  noFill ();
+
+  strokeWeight (8);
+  ellipse (385, 610, 120, 25); //cup rim
+
+//Toppings 
+//cream
+  strokeWeight (0);
+  fill (creamColour);
+  beginShape();
+  vertex (340, 615);
+  quadraticVertex (330, 600, 350, 590);
+  quadraticVertex (345, 575, 365, 570);
+  quadraticVertex (385, 568, 390, 555);
+  quadraticVertex (415, 560, 410, 575);
+  quadraticVertex (425, 580, 422, 592);
+  quadraticVertex (440, 600, 430, 615);
+  quadraticVertex (385, 630, 340, 615);
+  endShape ();
+  
+  //outline (drawn in seperate "swoops" to keep round edges. when all conected, corner become pointy)
+  strokeWeight (8);
+  stroke (creamOutline);
+  noFill ();
+  beginShape();
+  vertex (340, 615);
+  quadraticVertex (330, 600, 350, 590);
+  endShape ();
+  beginShape ();
+  vertex (350, 590);
+  quadraticVertex (345, 575, 365, 570);
+  quadraticVertex (385, 568, 390, 555);
+  endShape ();
+  beginShape ();
+  vertex (390, 555);
+  quadraticVertex (415, 560, 410, 575);
+  quadraticVertex (400, 585, 385, 583);
+  endShape ();
+  beginShape ();
+  vertex (410, 575);
+  quadraticVertex (425, 580, 422, 592);
+  quadraticVertex (410, 605, 370, 600);
+  endShape ();
+  beginShape ();
+  vertex (422, 592);
+  quadraticVertex (440, 600, 430, 615);
+  endShape ();
+
+//marshmellows
+  strokeWeight (8);
+  stroke (shmellowOutline);
+  fill (shmellowColour);
+
+  function shmello (shmelloX, shmelloY){
+  rect (shmelloX, shmelloY, 30, 25, 10);
+
+  }
+  push ();
+  rotate (25);
+  translate (205, -210);
+  shmello (370-shmelloMap, 600-shmelloMap);
+  pop ();
+  push ();
+  rotate (-45);
+  translate (-490, 110);
+  shmello (370+shmelloMap, 600+shmelloMap);
+  pop ();
+
+  //drawing half the rim again to cover toppings
+  strokeWeight (8);
+  stroke (plateOutline);
+  noFill ();
+  arc (385, 610, 120, 25, 0, 180);
+
+
+pop ();
+}
+pop ();
+}
+
+function CAKE (moveCakeX, moveCakeY) {
+push ();
+if (cake){
+push ();
+//plate 
+  strokeWeight (8);
+  stroke (plateOutline);
+  fill (plateColour);
+
+  ellipse (145, 755, 350, 120);
+  ellipse (145, 755, 290, 75);
+//cake part
+  strokeWeight (0);
+  stroke (cakeOutline);
+  fill (cakeColour);
+
+  beginShape (); // cake fill
+  vertex (230, 770);
+  vertex (235, 680);
+  vertex (50, 670)
+  vertex (48, 760)
+  endShape (CLOSE);
+
+  strokeWeight (8);
+  line (230, 770, 235, 680); //main cake outline
+  line (235, 680, 50, 670);
+  line (50, 670, 48, 760);
+  line (48, 760, 230, 770);
+  line (50, 737.5, 230, 747.5); //lowest cake layer
+  line (50, 715, 230, 725);
+  line (50, 692.5, 230, 702.5);
+
+//icing
+  strokeWeight (8);
+  stroke (icingOutline);
+  fill (icingColour);
+
+
+  beginShape (); //drip
+  vertex (120, 645);
+  vertex (50, 668);
+  quadraticVertex (42, 670, 47, 700); 
+  quadraticVertex (50, 710, 48, 730);
+  quadraticVertex (45, 740, 46, 750);
+  quadraticVertex (50, 765+icingMap, 60, 755+icingMap); //drip tip
+  quadraticVertex (68, 745, 65, 735);
+  quadraticVertex (60, 720, 68, 700);
+  quadraticVertex (73, 685, 95, 690);
+  quadraticVertex (120, 700+icingMap, 140, 690);
+  quadraticVertex (150, 685, 165, 695);
+  quadraticVertex (190, 710+icingMap, 210, 695);
+  quadraticVertex (215, 690, 225, 695);
+  quadraticVertex (240, 700+icingMap, 243, 690);
+  quadraticVertex (243, 680, 235, 678); //right tip
+  vertex (120, 645);
+  endShape ();
+
+  strokeWeight (7);
+  line (65, 673, 100, 675); //trianle line
+  line (120, 676, 200, 682);
+
+//cream
+  strokeWeight (8);
+  stroke (creamOutline);
+  fill (creamColour);
+
+  beginShape ();
+  vertex (120, 620-creamMap);
+  quadraticVertex (115, 635, 100, 640);
+  quadraticVertex (80, 650, 90, 660);
+  quadraticVertex (120, 675, 150, 660);
+  quadraticVertex (160, 650, 140, 640);
+  quadraticVertex (125, 635, 120, 620-creamMap);
+  endShape ();
+
+  arc (120, 650, 20, 3, 0, 180);
+
+
+pop ();
+}
+pop ();
+}
+
 
 if (oldLights){
 push ();
@@ -1062,6 +1169,7 @@ translate (1770, 200);
 scale (1, plantsMap)
 image (plantImage, -230, -220);
 pop ();
+}
 
 
 if (SmallVisualiser) {
@@ -1128,7 +1236,7 @@ pop ();
 
 }
 
-}
+
 
 
 

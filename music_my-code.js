@@ -1,15 +1,16 @@
 
-//centre cup 980
-// all variable colours in HSB unless otherwise stated
+// all colours in HSB unless otherwise stated
 
-
-//all variables
+//all Paramiters
+let SmallVisualiser = (false);
+//Paramiters for moving items in and out of canvas
 let BobaX = (310);
 let PancakeX = (50);
 let PancakeY = (300);
 let CocoaX = (-300);
 let CocoaY = (20);
 let CakeX = (-100);
+
 let cocoa = (true);
   let spoonOutline = [0, 0, 66.3];
   let spoonColour = [0, 0, 78.4];
@@ -59,12 +60,11 @@ let boba = (true);
     let strawOutline = [38, 43.7, 96.9]; //colour of straw outline -rgb:[255, 218, 154] -rgb:[247, 207, 139]
     let strawColour = [38, 33.2, 98]; //colour of strtaw centre -rgb:[255, 230, 186] -rgb:[250, 220, 167]
 let oldLights = (false);
-let lights = (true);
   let stars = (true);
+let lights = (true);
   let stringColour = [0, 0, 0];
   let starOutline = [0, 0, 0];
   //let starColour = [55, 100, 100]; //(commented out as no longer used as its attached to soundMap)
-let SmallVisualiser = (true);
 
 let firstRun = (true);
 let myImage;
@@ -75,18 +75,14 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   textFont('Verdana'); // please use CSS safe fonts
   rectMode(CENTER)
   textSize(24);
+colorMode(HSB);
+angleMode (DEGREES);
 
 //sounMaps for small music Visualizer
   let vocalMapY = map(vocal, 0, 100, 100, 1000);
   let drumMapY = map(drum, 0, 100, 100, 1000);
   let bassMapY = map(bass, 0, 100, 100, 1000);
   let otherMapY = map(other, 0, 100, 100, 1000);
-
-//map to HSB colourMode
-  let vocalHSBMap = map(vocal, 0, 100, 0, 360);
-  let drumHSBMap = map(drum, 0, 100, 0, 360);
-  let bassHSBMap = map(bass, 0, 100, 0, 360);
-  let otherHSBMap = map(other, 0, 100, 0, 360);
 
 //Boba SoundMap
   //soundMaps for boba balls
@@ -128,9 +124,9 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   let creamMap = map (bass, 0, 100, -5, 10);
 
 //plants SoundMap
-  let plantsMap = map (drum, 0, 100, 1, 1.1);
+  let plantsMap = map (drum, 0, 100, 1, 1.1); //makes plants "bounce"
 
-// loading in reffernce and background images 
+// loading in images 
 push ();
 if (firstRun){
 boba = loadImage ('Boba.png');
@@ -141,26 +137,25 @@ cakeImage = loadImage ('Cake.png');
 cocoaImage = loadImage ('Cocoa.png');
 flowerImage = loadImage ('Flower.png');
 plantImage = loadImage ('Plant.png');
+cafeLogoImage = loadImage ('sweet cafe.png')
 firstRun = (false);
 }
 image (backgroundImage, 0, 0);
-//image (cakeImage, 0, 0);
-//image (cocoaImage, 0, 0);
-// push ();
-// translate (-120, -50);
-// scale (1.1);
-// image (pancakeImage, 0, 0);
-// pop ();
-//image (boba, 500, 170);
-//image (lights, 0, 0, 960, 540);
-//image (lights, 1100, 0, 960, 540);
+//refence images: (commented out as no longer needed)
+  //image (cakeImage, 0, 0);
+  //image (cocoaImage, 0, 0);
+  // push ();
+  // translate (-120, -50);
+  // scale (1.1);
+  // image (pancakeImage, 0, 0);
+  // pop ();
+  //image (boba, 500, 170);
+  //image (lights, 0, 0, 960, 540);
+  //image (lights, 1100, 0, 960, 540);
 pop ();
 
 
-colorMode(HSB);
-angleMode (DEGREES);
-
-//pancake couner
+//boba couner
   if (counter>100 && counter<10800){
   push ();
     if (BobaX>0){
@@ -517,7 +512,6 @@ pop ();
 }
 
 function PANCAKE (movePancakeX, movePancakeY) {
-push ();
 if (pancake){
 push ();
 //plate
@@ -609,11 +603,9 @@ if (syrup){
 
 pop ();
 }
-pop ();
 }
 
 function COCOA (moveCocaoX, moveCocoaY) {
-push ();
 if (cocoa){
 push ();
 //Plate
@@ -731,11 +723,9 @@ push ();
 
 pop ();
 }
-pop ();
 }
 
 function CAKE (moveCakeX, moveCakeY) {
-push ();
 if (cake){
 push ();
 //plate 
@@ -814,7 +804,6 @@ push ();
 
 pop ();
 }
-pop ();
 }
 
 
@@ -1151,26 +1140,29 @@ if (lights){
     star2 (1725, 289);
     star1 (1800, 301); //third swoop
     star3 (1875, 290);
-
-
-
-
+}
 
 //moving plants
 push ();
-translate (950, 500);
+translate (950, 500); //translate to place on shelf
 scale (1, plantsMap);
-image (flowerImage, -200, -310); 
+image (flowerImage, -200, -310); //loaded so base of pot is at 0,0 so that pot doesnt move when scaled
 pop ();
 
 
 push ();
-translate (1770, 200);
+translate (1770, 200); //translate to place on shelf
 scale (1, plantsMap)
-image (plantImage, -230, -220);
+image (plantImage, -230, -220); //loaded so base of pot is at 0,0 so that pot doesnt move when scaled
 pop ();
-}
 
+//rotating logo
+push ();
+let logoRotate = (frameCount * 0.3);
+translate (85, 1000);
+rotate (logoRotate)
+image (cafeLogoImage, -110, -103);
+pop ();
 
 if (SmallVisualiser) {
 push ();
@@ -1180,28 +1172,21 @@ scale (0.1);
 stroke (255, 140, 219);
 fill (255, 140, 2195);
 strokeWeight (10);
-
 ellipse (200, bassMapY, 100, 100);
-
 //drum
 stroke (219, 140, 255);
 fill (219, 140, 255);
 strokeWeight (10);
-
 ellipse (400, drumMapY, 100, 100);
-
 //other
 stroke (140, 159, 255);
 fill (140, 159, 255);
 strokeWeight (10);
-
 ellipse (600, otherMapY, 100, 100);
-
 //vocal
 stroke (140, 236, 255);
 fill (140, 236, 255);
 strokeWeight (10);
-
 ellipse (800, vocalMapY, 100, 100);
 
 pop ();
